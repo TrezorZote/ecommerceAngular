@@ -1,0 +1,10 @@
+{ 
+    "/api":
+{
+"target":" http://temlizapp-env.eba-9niescvs.eu-central-1.elasticbeanstalk.com/ ",
+"secure": false,
+"pathRewrite": {"^/api": ""}, 
+"logLevel":"debug"
+}
+
+}

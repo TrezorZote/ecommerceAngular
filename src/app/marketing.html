@@ -1,0 +1,208 @@
+
+
+<body id="markSec">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="marketing.css">
+  
+  
+  <div class="navbar" >
+            <h2  class="navbar-logo"  id="logo">TEM<span>LIZ</span></h2> 
+           <img  class="menu-btn" id="menuCta"   src="https://cdn-icons-png.flaticon.com/128/8028/8028296.png" alt="menu">
+           <nav >
+               <img  class="exit-btn" id="exitCta" src="https://cdn-icons-png.flaticon.com/128/1828/1828778.png"    alt="exit menu">
+           <ul class="navbar-menu">
+               <li><a (click)="onOpenModal('create')">Sell</a></li>
+               <li><a href="#aboutApp">About</a></li>
+               <li><a href="#toSearchProduct">Search</a></li>
+           </ul>
+           </nav>
+    </div>
+    <br>
+     <br id="aboutApp">
+    <section class="marketing">
+      <div class="logoss">
+     <img class="clothLogo" src="https://cdn-icons-png.flaticon.com/128/2935/2935183.png" alt="">
+     <img class="carLogo"  src="https://cdn-icons-png.flaticon.com/128/3774/3774270.png" alt="">
+     <img class="phoneSell" src="https://cdn-icons-png.flaticon.com/128/3437/3437364.png" alt="">
+     <img class="houseLogo" src="https://cdn-icons-png.flaticon.com/128/602/602225.png" alt="">
+     <img class="laptopSell" src="https://cdn-icons-png.flaticon.com/128/187/187496.png" alt="">
+    </div>
+      <P> Welcome to the Temliz<sup>Pub</sup> webApp where you can advertise and find interesting products on sale,
+         photos of appartments on rent or flyers for Events and much more.
+         Phone Numbers of Sellers are available for contacting. Advertise your products by clicking on sell in menu. Please
+         note Down your Password as you might need it for future Deleting and editing.
+        <span> Please Note that after registration, 
+        each Month a Mail for support will be sent for a deposit to (+237 698975191) Orange Money .</span>
+         In Addition, Products that costs more than 10,000 frs requires to be added an extra 5% of the original amount ,
+        <span> so this 5% only in case of a successful Sale...</span> could help support this business.</P>
+  <br>
+  <hr id="toSearchProduct">
+  <div class="logoss">
+<img class="dressLogo" src="https://cdn-icons-png.flaticon.com/128/2258/2258432.png" alt="">
+<img class="carLogo" src="https://cdn-icons-png.flaticon.com/128/7087/7087327.png" alt="">
+ <img class="phoneLogo"  src="https://cdn-icons-png.flaticon.com/128/6608/6608067.png" alt="">
+ <img class="houseLogo" src="https://cdn-icons-png.flaticon.com/128/1441/1441372.png" alt="">
+ <img class="laptopLogo" src="https://cdn-icons-png.flaticon.com/128/3107/3107920.png" alt="">
+</div>
+<form>
+    <p style="margin: 1em auto auto .4em;">Here you can search for different products by Category 
+      <b> like: iphone X... House&appartment... Cars Toyota... Dresses shoes... TV Samsung... Animals Dog... Playstation 3 4 5... textbook math... etc</b>
+      <span style="color: rgb(204, 54, 0);"> Inorder to get Your product enter your Phone number in the search area below. </span> 
+    </p>
+    <div class="centre">
+    <input type="search" (ngModelChange)="searchProduct(key.value)" #key="ngModel" ngModel  name="key" id="searchName" class="nameSearch" placeholder="     enter Category or Phone#"><img class="searchIcon" src="https://t3.ftcdn.net/jpg/00/83/10/90/240_F_83109078_BOS0Wxe3v1slxIprmr3VK6HDBBrnsArt.jpg" alt="">
+  </div>
+  </form>
+  <div *ngIf="productsArray?.length==0" class="noItems">
+    <div class="alerter" role="alert">
+      <h4 class="alerter" >No Item Found!</h4>
+  </div>
+</div>
+
+
+<!--card section-->
+
+<section class="cards" id="main-container">
+  <div *ngFor="let product of productsArray"   class="item-container1">
+    <div class="item-row">
+      <div class="item-column1">
+        <div class="item-card-part1">
+          <div id="carouselExampleSlidesOnly" data-bs-ride="carousel"  class="carousel slide" >
+          <div class="carousel-inner" style="background-color: white;  height: 16em;" role="listbox" >
+            <div class="carousel-item active">
+              <img class="item-rounded-image"  src="data:image/jpg;base64,{{product?.imageUrl}}" alt="">
+            </div>
+            <div  class="carousel-item" >
+              <img class="item-rounded-image"  src="data:image/jpg;base64,{{product?.mainImage1}}" alt="">
+            </div>
+            <div *ngIf="product.mainImage2!==null"  class="carousel-item">
+              <img class="item-rounded-image" src="data:image/jpg;base64,{{product?.mainImage2}}" alt="">
+            </div>
+            <div *ngIf="product.mainImage3!==null" class="carousel-item">
+              <img class="item-rounded-image"  src="data:image/jpg;base64,{{product?.mainImage3}}" alt="">
+            </div>
+            <div *ngIf="product.mainImage4!==null" class="carousel-item">
+              <img class="item-rounded-image"  src="data:image/jpg;base64,{{product?.mainImage4}}" alt="">
+            </div>
+          </div>
+        </div>
+          <ul class="items-attributes">
+            <li> <a (click)="onOpenModalEdit(product,'deleteForm')"class="delete-button"  id="deleteItem" data-placement="top" role="dialog" data-original-title="Delete" ><img  class="deleteItemLogo" id="deleteImage" src="https://cdn-icons-png.flaticon.com/128/447/447047.png" alt=""></a> </li>
+            <li class="it-attributes"><i></i>Category <span class="spa">{{product?.productCategory}}</span></li>
+            <li class="it-attributes"><i></i>Price <span class="spa">{{product?.productPrice}} frs</span></li>
+            <li class="it-attributes"><i></i>Description <span class="spa">{{product?.productDescription}}</span></li>
+            <li class="it-attributes"><i></i>location <span class="spa">{{product?.productLocation}}</span><a style="color:rgba(220, 59, 0, 0.868);" class="findTag"  (click)="onOpenModal('findLoc')">  googleMaps</a></li>
+           <li class="it-attributes"><i></i>Tel <span class="spa">{{product?.contact}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</div>
+</section>
+
+</section>
+
+<hr>
+
+<!--posting-->
+      <div class="modal fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="createProduct" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+          <div class="mark">
+          <h2>POST A PRODUCT</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <form (ngSubmit)="onPostProduct()" [formGroup]="form" method="post" enctype="multipart/form-data">
+            <label for="productCategory"> Category </label>
+            <input type="text" id="productCategory" formControlName="productCategory" placeholder="like car Yaris/iphone X/textbook Bio..." maxlength="28">
+            <div *ngIf="form.get('productCategory').invalid" class="validate">max length reached</div>
+            <label for="price"> Price </label>
+            <input type="number" id="price" formControlName="productPrice"  placeholder=" enter price " required>
+            <label for="productLocation"> Product location </label>
+            <input type="text" id="productLocation" formControlName="productLocation"  placeholder=" product location..." maxlength="65">
+            <div *ngIf="form.get('productLocation').invalid"  class="validate">max length reached</div>
+            <label for="contact"> Tel <span>:</span></label>
+            <input type="tel" id="contact" formControlName="contact" placeholder="enter atleast 9 figures">
+            <div *ngIf="form.get('contact').invalid"  class="validate">atleast 9 figures</div>
+            <label for="productDescription"> Product description</label>
+            <textarea  id="productDescription"  formControlName="productDescription" placeholder="brief description..." rows="4" cols="27" maxlength="110"></textarea>
+             <div *ngIf="form.get('productDescription').invalid" class="validate">max length reached</div>
+             <label for="productPassword"> Password  <span>(for deleting)</span></label>
+            <input type="number"  formControlName="productPassword" id="productPassword"  placeholder="atleast 5 figures" >
+            <div *ngIf="form.get('productPassword').invalid"  class="validate">atleast 5 figures</div>
+            <label class="chooseImage" for="file">
+              <i class="material-icons">add_photo_alternate</i>&nbsp;1</label>
+            <input class="form-control" formControlName="imageUrl" (change)="onFileChange($event)"  type="file" id="file"  accept="image/*" required>
+            <div *ngIf="form.get('imageUrl')==null"  class="validate">first image is obligatory</div>
+            <img  alt="first" id="displayImage" class="item-rounded-image" >
+            <label class="chooseImage" for="file2">
+              <i class="material-icons">add_photo_alternate</i>&nbsp;2</label>
+            <input  type="file" id="file2"  formControlName="mainImage1" (change)="onFileChange2($event)" accept="image/*" required>
+            <div *ngIf="form.get('mainImage1')==null"  class="validate">second image is obligatory</div>
+            <img  alt="second" id="displayImage2" class="item-rounded-image">
+            <label class="chooseImage" for="file3">
+              <i class="material-icons">add_photo_alternate</i>&nbsp;3</label>
+            <input  type="file" id="file3"  formControlName="mainImage2" (change)="onFileChange3($event)" accept="image/*" >
+            <img  alt="third" id="displayImage3" class="item-rounded-image">
+            <label class="chooseImage" for="file4">
+              <i class="material-icons">add_photo_alternate</i>&nbsp;4</label>
+            <input  type="file" id="file4"  formControlName="mainImage3" (change)="onFileChange4($event)" accept="image/*" >
+            <img  alt="fourth" id="displayImage4" class="item-rounded-image">
+            <label class="chooseImage" for="file5">
+              <i class="material-icons">add_photo_alternate</i>&nbsp;5</label>
+            <input  type="file" id="file5"  formControlName="mainImage4" (change)="onFileChange5($event)" accept="image/*" >
+            <img  alt="fifth" id="displayImage5" class="item-rounded-image">
+            
+            <div class="postBtn">
+              <button type="submit"  class="submit">post</button>
+              <button class="resetAll" type="reset">clear</button>
+            </div>
+          </form>
+        </div>
+        </div>
+      </div>
+      </div>
+
+
+
+<!--deleting -->
+<div  class="modal fade" id="deleteProduct" tabindex="-1" role="dialog" aria-labelledby="updateProduct" aria-hidden="true">
+  <div  class="modal-dialog" role="document" style="background-color: white; margin-top: 3em;margin-left: .5em; height: 10em;">
+    <div class="modal-content" >
+    <button  type="button" class="closeDelete" data-dismiss="modal" aria-label="close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    
+    <form [formGroup]="submitPassword" (ngSubmit)="checkPassword(deleteProd.productPassWord,deleteProd.id)">
+      <div class="form-group" style="border-radius: 4px; ">
+  <label style=" margin-left: .5em; margin-right: .3em;" for="passCheck">to Delete this Product you have to enter your Password</label>
+  <input type="number" formControlName="passCheck" style="width: 16em; height:2.5em;  margin: auto auto -1em .8em ;border: none; box-shadow: 0 .0 .4rem 0 black; border-radius: 4px;">
+  <input style="margin-left: 1em;"  type="submit" class="updateCheck" value="Delete">
+      </div>
+  </form> 
+  <input type="hidden" id="id" ngModel="{{deleteProd?.id}}" name="id">
+</div>
+</div>
+</div>
+
+
+<!--find location section -->
+<div  class="modal fade" id="locationForm" tabindex="-1" role="dialog" aria-labelledby="updateProduct" aria-hidden="true">
+  <div  class="modal-dialog" role="document" style="background-color: white; margin-top: 3em;margin-left: .5em; height: 11em;">
+    <div class="modal-content" >
+      <button  type="button" class="closeDelete" data-dismiss="modal" aria-label="close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+<section class="contact-right" id="findLocation">
+  <h3>Find <span>Location</span> : </h3> <img class="locationLogo" src="https://cdn-icons-png.flaticon.com/128/854/854878.png" alt="">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15923.380644645886!2d11.499670056554136!3d3.84339644704202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x108bcf7a309a7977%3A0x7f54bad35e693c51!2sJaunde%2C%20Kamerun!5e0!3m2!1sde!2sde!4v1644882446916!5m2!1sde!2sde"  width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+</div>
+</div>
+</div>
+
+</body>
+
+
